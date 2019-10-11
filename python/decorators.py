@@ -19,5 +19,33 @@ def timer(func):
     return inner
 
 
+def logger(func):
+    from datetime import datetime
+    from functools import wraps
+    count = 0
+
+    @wraps(func)
+    def inner(*args, **kwargs):
+        nonlocal count
+        date = datetime.now()
+        result = func(*args, **kwargs)
+        count += 1
+        print(
+            f'Name:{func.__name__} \nLast Call Time:{date}\nNumber of times Declared: {count}')
+        return result
+
+    return inner
+
+
+def memoiz(func):
+    cache = dict()
+
+    def inner(n):
+        if n not in cache:
+            cache[n] = func(n)
+        return cache[n]
+    return inner
+
+
 if __name__ == "__main__":
     pass
