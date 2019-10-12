@@ -1,22 +1,26 @@
-def timer(func):
-    from time import perf_counter
-    from functools import wraps
+def timer(reps=10):
+    def second_level(func):
+        from time import perf_counter
 
-    @wraps(func)
-    def inner(*args, **kwargs):
-        start = perf_counter()
-        result = func(*args, **kwargs)
-        end = perf_counter()
-        elapsed = end - start
+        def last_level(*args, **kwargs):
+            total_elapsed = 0
+            for i in range(reps):
+                start = perf_counter()
+                result = func(*args, **kwargs)
+                end = perf_counter()
+                total_elapsed += (end - start)
+            agv_elapsed = total_elapsed/reps
 
-        args_ = [str(i) for i in args]
-        kwargs_ = [f'{k} = {v}' for (k, v) in kwargs.items()]
-        arg_list = args_ + kwargs_
-        args_str = ','.join(arg_list)
+            args_ = [str(i) for i in args]
+            kwargs_ = [f'{k} = {v}' for (k, v) in kwargs.items()]
+            arg_list = args_ + kwargs_
+            args_str = ','.join(arg_list)
 
-        print(f'{func.__name__} ({args_str}) took {elapsed:8f} second(s) to run')
-        return result
-    return inner
+            print(
+                f'{func.__name__} ({args_str}) took {agv_elapsed:8f} second(s) to run. ({reps} reps has run)')
+            return result
+        return last_level
+    return second_level
 
 
 def logger(func):

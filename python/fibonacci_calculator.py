@@ -1,9 +1,11 @@
 from decorators import timer, logger, memoiz
+from functools import lru_cache
 
 # with recursion (without memoization)
 
 
-def fib(n):
+@lru_cache()  # take a parameter "maxsize" and arg should be as a poer of 2
+def fibonacci_recursive(n):
     if n <= 2:
         return 1
     else:
@@ -11,13 +13,7 @@ def fib(n):
         return fib(n-1) + fib(n-2)
 
 
-@memoiz
-def fibonacci_recursive(n):
-    return fib(n)
-
-
-@logger
-@timer
+@timer()
 def fibonacci_loop(n):
     if n <= 1:
         return 1
@@ -30,26 +26,21 @@ def fibonacci_loop(n):
     return second
 
 
-# class Fibonacci:
-#     def __init__(self):
-#         self.cache = {1: 1, 2: 1}
+class Fibonacci:
+    def __init__(self):
+        self.cache = {1: 1, 2: 1}
 
-#     def fib(self, n):
-#         if n not in self.cache:
-#             self.cache[n] = self.fib(n-1) + self.fib(n-2)
-#         return self.cache[n]
-
-
-# def fib():
-#     cache = {1: 1, 2: 1}
-
-#     def calc_fib(n):
-#         if n not in cache:
-#             cache[n] = calc_fib(n-1) + calc_fib(n-2)
-#         return cache[n]
-#     return calc_fib
+    def fib(self, n):
+        if n not in self.cache:
+            self.cache[n] = self.fib(n-1) + self.fib(n-2)
+        return self.cache[n]
 
 
-print(fibonacci_recursive(11))
-print('asd')
-print(fibonacci_recursive(14))
+def fibonacci_closure():
+    cache = {1: 1, 2: 1}
+
+    def calc_fib(n):
+        if n not in cache:
+            cache[n] = calc_fib(n-1) + calc_fib(n-2)
+        return cache[n]
+    return calc_fib
