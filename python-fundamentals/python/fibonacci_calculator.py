@@ -4,7 +4,7 @@ from functools import lru_cache
 # with recursion (without memoization)
 
 
-@lru_cache()  # take a parameter "maxsize" and arg should be as a poer of 2
+@lru_cache()  # take a parameter "maxsize" and arg should be as a power of 2
 def fibonacci_recursive(n):
     if n <= 2:
         return 1
