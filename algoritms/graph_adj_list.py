@@ -35,7 +35,7 @@ class Graph():
     def get_nodes(self):
         return self.node_list.keys()
 
-    def add_edge(self, start_node_id, end_node_id, weight):
+    def add_edge(self, start_node_id, end_node_id, weight=0):
         if start_node_id not in self.node_list:
             new_node = self.add_node(start_node_id)
         if end_node_id not in self.node_list:
@@ -43,7 +43,7 @@ class Graph():
         self.node_list[start_node_id].add_connected_node(end_node_id, weight)
 
     def __iter__(self):
-        return self.node_list.values()
+        return iter(self.node_list.values())
 
     def __contains__(self, node_id):
         return node_id in self.node_list
@@ -51,10 +51,32 @@ class Graph():
     def __str__(self):
         return f'Total nodes: {self.total_node} values {[j for i,j in self.node_list.items()]}'
 
+    def __len__(self):
+        return len(self.node_list)
 
-graph = Graph()
-for i in range(6):
-    graph.add_node(i)
 
-graph.add_edge(0, 3, 5)
-print(graph)
+def bfs(graph, root):
+    import queue
+
+
+def graph_sample():
+    graph = Graph()
+    for i in range(1, 8):
+        graph.add_node(i)
+
+    graph.add_edge(1, 2)
+    graph.add_edge(1, 3)
+    graph.add_edge(1, 5)
+    graph.add_edge(2, 6)
+    graph.add_edge(2, 4)
+    graph.add_edge(3, 4)
+    graph.add_edge(3, 7)
+    graph.add_edge(2, 6)
+    graph.add_edge(5, 4)
+
+    return graph
+
+
+if __name__ == "__main__":
+
+    graph = graph_sample()
