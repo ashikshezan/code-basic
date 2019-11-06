@@ -46,6 +46,23 @@ class BinarySearchTree():
         else:
             space.right = node
 
+    def transplant(self, root, node_to_tansplant, node_to_add):
+        if node_to_tansplant.parent == None:
+            self.root = node_to_add
+        elif node_to_tansplant == node_to_tansplant.parent.left:
+            node_to_tansplant.parent.left = node_to_add
+        else:
+            node_to_tansplant.parent.right = node_to_add
+
+        if node_to_add != None:
+            node_to_add.parent = node_to_tansplant.parent
+
+    def delete(self, node_to_delete):
+        if node_to_delete.left == None:
+            self.transplant(node_to_delete, node_to_delete.right)
+        elif node_to_delete.right == None:
+            self.transplant(node_to_delete, node_to_delete.left)
+
 
 if __name__ == "__main__":
     d = TreeNode(20)
