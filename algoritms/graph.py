@@ -98,31 +98,6 @@ def dfs(graph):
         print(i)
 
 
-def knight_tour(graph, start):
-    for i in graph:
-        graph[i].color = False
-
-    stack.append(start)
-    result = []
-    stack = [start]
-    limit = 0
-
-    def dfs_nodes():
-        while limit <= len(graph):
-            if not graph[i].color:
-                dfs_visit(graph, start)
-
-    def dfs_visit(graph, node):
-        node.color = True
-        for i in node:
-            if not graph[i].color:
-                dfs_visit(graph, stack[-1])
-        result.append(node)
-    dfs_nodes()
-    for i in result:
-        print(i)
-
-
 if __name__ == "__main__":
     g = Graph()
     graph = graph_sample()

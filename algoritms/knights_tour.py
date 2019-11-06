@@ -48,4 +48,4 @@ knight_graph(4)
 #     print(graph[i])
 
 # bfs(graph, graph['12'])
-dfs(graph, graph['0'])
+dfs(graph)
