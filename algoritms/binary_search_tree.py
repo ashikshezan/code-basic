@@ -2,7 +2,7 @@ from tree import TreeNode, Tree
 
 
 class BinarySearchTree():
-    def __init__(self, data):
+    def __init__(self, data=None):
         self.root = data
         self.temp = None
 
@@ -46,7 +46,7 @@ class BinarySearchTree():
         else:
             space.right = node
 
-    def transplant(self, root, node_to_tansplant, node_to_add):
+    def transplant(self, node_to_tansplant, node_to_add):
         if node_to_tansplant.parent == None:
             self.root = node_to_add
         elif node_to_tansplant == node_to_tansplant.parent.left:
@@ -63,32 +63,45 @@ class BinarySearchTree():
         elif node_to_delete.right == None:
             self.transplant(node_to_delete, node_to_delete.left)
 
+        else:
+            space = self.minimum(node_to_delete.right)
+            if space.parent != node_to_delete:
+                self.transplant(space, space.right)
+                space.right = node_to_delete.right
+                space.right.parent = space
+
+            self.transplant(node_to_delete, space)
+            space.left = node_to_delete.left
+            space.left.parent = space
+
+    def inorder(self, root):
+        if root != None:
+            self.inorder(root.left)
+            print(root)
+            self.inorder(root.right)
+
 
 if __name__ == "__main__":
-    d = TreeNode(20)
-    a = TreeNode(5)
-    f = TreeNode(30)
-    e = TreeNode(4)
-    b = TreeNode(14)
-    r = TreeNode(25)
-    t = TreeNode(40)
-    x = TreeNode(100)
+    tree = BinarySearchTree()
 
-    tree = BinarySearchTree(d)
+    a = TreeNode(20)
+    b = TreeNode(5)
+    c = TreeNode(30)
+    d = TreeNode(4)
+    e = TreeNode(14)
+    f = TreeNode(25)
+    g = TreeNode(40)
+    h = TreeNode(100)
 
-    tree.root.right = f
-    tree.root.left = a
-
-    a.right = b
-    a.left = e
-
-    f.right = t
-    f.left = r
-
-    print(tree.insert(x))
-    print(tree.maximum(tree.root).data)
-
-'''
+    tree.insert(a)
+    tree.insert(b)
+    tree.insert(c)
+    tree.insert(d)
+    tree.insert(e)
+    tree.insert(f)
+    tree.insert(g)
+    tree.insert(h)
+    '''
 
             20
           /    \
@@ -100,5 +113,7 @@ if __name__ == "__main__":
     4     14  25     40
                       \
                        \
-                        X
-'''
+                       100
+    '''
+
+    tree.inorder(tree.root)
