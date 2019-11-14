@@ -1,4 +1,4 @@
-from graph import Graph, Node, dfs, bfs
+from graph import Graph, Node, dfs, bfs, path_finder
 
 graph = Graph()
 for i in range(16):
@@ -48,4 +48,5 @@ knight_graph(4)
 #     print(graph[i])
 
 # bfs(graph, graph['12'])
-dfs(graph)
+# dfs(graph)
+# path_finder(graph, graph['0'], graph['8'], [])

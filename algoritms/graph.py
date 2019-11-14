@@ -1,5 +1,7 @@
 from collections import UserDict
 
+count = 0
+
 
 class Node(UserDict):
 
@@ -48,6 +50,8 @@ def graph_sample():
     graph.add_edge('3', '4')
     graph.add_edge('3', '7')
     graph.add_edge('5', '4')
+
+    graph.add_edge('4', '5')
     # graph.add_edge('6', '8')
     # graph.add_edge('8', '9')
     # graph.add_edge('7', '10')
@@ -56,22 +60,23 @@ def graph_sample():
 
 def bfs(graph, start_node):
     import queue
+
     for i in graph:
         graph[i].color = False
+
     result = []
     q = queue.Queue()
     start_node.distance = 0
+    start_node.color = True
     q.put(start_node)
-    result.append(start_node)
     while(not q.empty()):
         temp = q.get()
+        result.append(temp)
         for i in temp:
             if not graph[i].color:
                 graph[i].color = True
                 q.put(graph[i])
-                result.append(graph[i])
                 graph[i].distance += temp.distance+1
-            temp.color = True
     for i in result:
         print(f'{i}-->{i.distance}')
     print(len(result))
@@ -98,10 +103,53 @@ def dfs(graph):
         print(i)
 
 
+def dfs_v2(graph, root):
+
+    # for the root with no connected graph
+    if not len(graph):
+        return [root]
+    print(root)
+    root.color = True
+    for node in root:
+        if graph[node].color == False:
+            dfs_v2(graph, graph[node])
+
+
+def path_finder(graph, start, end, path):
+
+    for node in start:
+        if end.color == True:
+            break
+        graph[node].color = True
+        if end.id == node:
+            print('Path Found')
+            end.color = True
+            return
+        global count
+        count += 1
+        path_finder(graph, graph[node], end, path)
+    # else:
+    #     start.color = False
+
+    return 'Not Found'
+
+
 if __name__ == "__main__":
     g = Graph()
     graph = graph_sample()
 
-    dfs(graph)
-    print('=========')
-    bfs(graph, graph['1'])
+    # gp = Graph()
+    # gp['1'] = Node()
+    print(dfs_v2(graph, graph['1']))
+    # for i in graph:
+    #     print(graph[i])
+
+    # dfs(graph)
+    # print('=========')
+    # bfs(graph, graph['1'])
+
+    # path_finder(graph, graph['1'], graph['5'], [])
+    # for i in graph:
+    #     print(graph[i], graph[i].color)
+
+    # print(count)

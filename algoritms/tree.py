@@ -8,6 +8,16 @@ class TreeNode:
     def __repr__(self):
         return f'{self.data} [{self.left} <--> {self.right}]'
 
+    def get_height(self):
+        if self.left and self.right:
+            return 1 + max(self.left.get_height(), self.right.get_height())
+        elif self.left:
+            return 1 + self.left.get_height()
+        elif self.right:
+            return 1 + self.right.get_height()
+        else:
+            return 0
+
 
 class Tree:
     def __init__(self, n):
@@ -31,8 +41,18 @@ def postorder(n):
 def inorder(n):
     if n != None:
         inorder(n.left)
-        print(" "+n.data+" ", end=' ')
+        print(" ", n.data, " ", end=' ')
         inorder(n.right)
+
+
+def check_balance(root):
+    # if root.left and root.right == None:
+    #     return 1
+
+    if abs(root.left.get_height()-root.right.get_height()) <= 1:
+        return True
+    else:
+        return False
 
 
 if __name__ == '__main__':
@@ -91,10 +111,13 @@ if __name__ == '__main__':
     t1.right = l
     t1.left = j
 
-    print("Preorder :", end='    ')
-    preorder(t.root)
-    print("\nPostorder:", end='    ')
-    postorder(t.root)
-    print("\nInorder  :", end='    ')
-    inorder(t.root)
-    print("\n")
+    # print("Preorder :", end='    ')
+    # preorder(t.root)
+    # print("\nPostorder:", end='    ')
+    # postorder(t.root)
+    # print("\nInorder  :", end='    ')
+    # inorder(t.root)
+    # print("\n")
+
+    p = check_balance(t.root)
+    print(p)
