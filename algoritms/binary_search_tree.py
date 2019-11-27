@@ -81,17 +81,35 @@ class BinarySearchTree():
             self.inorder(root.right)
 
 
+def checkBST(node):
+
+    def check(node, min, max):
+        if not node:
+            return True
+
+        if (min != None and min > node.data) or (max != None and max < node.data):
+            return False
+        if not (check(node.left, min, node.data)) or not(check(node.right, node.data, max)):
+            return False
+        return True
+
+    return check(node, None, None)
+
+
 if __name__ == "__main__":
     tree = BinarySearchTree()
 
-    a = TreeNode(20)
-    b = TreeNode(5)
-    c = TreeNode(30)
-    d = TreeNode(4)
-    e = TreeNode(14)
-    f = TreeNode(25)
-    g = TreeNode(40)
-    h = TreeNode(100)
+    a = TreeNode(27)
+    b = TreeNode(25)
+    c = TreeNode(40)
+    d = TreeNode(20)
+    e = TreeNode(26)
+    f = TreeNode(30)
+    g = TreeNode(60)
+    h = TreeNode(10)
+    i = TreeNode(22)
+    k = TreeNode(50)
+    l = TreeNode(65)
 
     tree.insert(a)
     tree.insert(b)
@@ -101,19 +119,16 @@ if __name__ == "__main__":
     tree.insert(f)
     tree.insert(g)
     tree.insert(h)
-    '''
+    tree.insert(i)
+    tree.insert(k)
+    tree.insert(l)
 
-            20
-          /    \
-         /      \
-        /        \
-       5         30
-      / \       /  \
-     /   \     /    \
-    4     14  25     40
-                      \
-                       \
-                       100
-    '''
+    x = TreeNode(20)
+    y = TreeNode(10)
+    z = TreeNode(30)
+    zz = TreeNode(25)
 
-    tree.inorder(tree.root)
+    x.left = y
+    x.right = z
+
+    y.right = zz
