@@ -1,0 +1,13 @@
+# Memoization
+    Workflow
+        1. Make it work
+            - Visualize the problem as a tree
+            - Make a tree using recursion
+            - Test it
+        2. Make it efficient 
+            - Add a memo object to the top level (a reference type)
+            - Add base case to return the memo object
+            - Store return values into the memo
+            
+        
+# Tabulation
