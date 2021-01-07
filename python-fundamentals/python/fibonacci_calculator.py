@@ -1,4 +1,4 @@
-from decorators import timer, logger, memoiz
+from decorators import timer, logger, memoize
 from functools import lru_cache
 
 # with recursion (without memoization)
@@ -27,6 +27,10 @@ def fibonacci_loop(n):
 
 
 class Fibonacci:
+    '''
+    Class implementation of Fibonacci sequence
+    '''
+
     def __init__(self):
         self.cache = {1: 1, 2: 1}
 
@@ -44,3 +48,7 @@ def fibonacci_closure():
             cache[n] = calc_fib(n-1) + calc_fib(n-2)
         return cache[n]
     return calc_fib
+
+
+s = Fibonacci()
+print(s.__hash__())

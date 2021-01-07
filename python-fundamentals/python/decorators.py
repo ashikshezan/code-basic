@@ -41,7 +41,10 @@ def logger(func):
     return inner
 
 
-def memoiz(func):
+def memoize(func):
+    '''
+    This is a memoization finction. Does the same thing as "lru_cache" does. Comes handy in dynamic programming
+    '''
     cache = dict()
 
     def inner(n):
@@ -52,4 +55,6 @@ def memoiz(func):
 
 
 if __name__ == "__main__":
-    pass
+    a = timer()
+    b = a(print)
+    b('sdflkj')
